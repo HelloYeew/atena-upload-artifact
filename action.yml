@@ -59,8 +59,8 @@ runs:
     - name: Create a release on Atena repository
       if: always()
       env:
-          ASUNA_UPLOAD_KEY: ${{ inputs.ASUNA_UPLOAD_KEY }}
-          ASUNA_ENDPOINT: ${{ inputs.ASUNA_ENDPOINT }}
+          ATENA_API_KEY: ${{ inputs.ATENA_API_KEY }}
+          ATENA_ENDPOINT: ${{ inputs.ATENA_ENDPOINT }}
           VERSION: ${{ inputs.VERSION }}
           DESCRIPTION: ${{ inputs.DESCRIPTION }}
           PRE_RELEASE: ${{ inputs.PRE_RELEASE }}
