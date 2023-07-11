@@ -1,0 +1,74 @@
+name: 'Upload Artifact to Atena'
+author: 'HelloYeew'
+description: 'Upload build artifact and release to Atena'
+inputs:
+  ATENA_API_KEY:
+    description: "Atena API key"
+    required: true
+    default: ''
+
+  ATENA_ENDPOINT:
+    description: "Atena endpoint"
+    required: false
+    default: https://atena.helloyeew.dev/api/upload_artifact
+
+  VERSION:
+    description: "Version name of this release"
+    required: true
+  
+  ARTIFACT_PATH:
+    description: "Path to artifact, if have more than one, use comma to separate"
+    required: true
+  
+  DESCRIPTION:
+    description: "Description of this release"
+    required: false
+    default: ''
+  
+  PRE_RELEASE:
+    description: "Is this release is pre-release"
+    required: false
+    default: true
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Setup Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.11'
+
+    - name: Install requirements
+      shell: bash
+      run: |
+        pip install python-magic
+        pip install coverage
+        pip install requests
+
+    - name: Install libmagic1
+      shell: bash
+      run: |
+          sudo apt-get update
+          sudo apt-get install libmagic1
+
+    - name: Download upload script
+      shell: bash
+      run: |
+          curl -L https://raw.githubusercontent.com/HelloYeew/atena-upload-artifact/main/upload_artifact.py -o upload_artifact.py
+
+    - name: Create a release on Atena repository
+      if: always()
+      env:
+          ASUNA_UPLOAD_KEY: ${{ inputs.ASUNA_UPLOAD_KEY }}
+          ASUNA_ENDPOINT: ${{ inputs.ASUNA_ENDPOINT }}
+          VERSION: ${{ inputs.VERSION }}
+          DESCRIPTION: ${{ inputs.DESCRIPTION }}
+          PRE_RELEASE: ${{ inputs.PRE_RELEASE }}
+          ARTIFACT_PATH: ${{ inputs.ARTIFACT_PATH }}
+      shell: bash
+      run: |
+        python upload_artifact.py
+
+branding:
+  icon: 'check-square'
+  color: 'red'
