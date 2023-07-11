@@ -42,11 +42,11 @@ print('📦Uploading artifacts...')
 response = requests.post(url, data=form_data, files=files)
 output = response.text
 
-if response.status_code != 201:
+if response.status_code == 200 or response.status_code == 201:
     output = json.loads(output)
     print(f'✅ Successfully create a release on {output["repository"]} with ID {output["release_id"]}')
     print(f'Full response: {response.text}')
     exit(0)
 else:
-    print(f'❌Failed: {response.text}')
+    print(f'❌Failed with status code {response.status_code}: {response.text}')
     exit(1)
