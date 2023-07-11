@@ -70,5 +70,5 @@ runs:
         python upload_artifact.py
 
 branding:
-  icon: 'check-square'
+  icon: 'upload-cloud'
   color: 'red'
