@@ -6,10 +6,6 @@ import requests
 
 print('💫 Starting uploading coverage report to Atena')
 print('🔑Checking environment variables...')
-print('🔑Checking upload key...')
-if os.getenv('ATENA_API_KEY') is None or os.getenv('ATENA_API_KEY') == '':
-    print('❌Failed: ASUNA_UPLOAD_KEY is not set')
-    exit(1)
 
 key = os.getenv('ATENA_API_KEY')
 url = os.getenv('ATENA_API_ENDPOINT')
