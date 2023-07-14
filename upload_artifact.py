@@ -4,7 +4,7 @@ import magic
 
 import requests
 
-print('💫 Starting uploading coverage report to Atena')
+print('💫 Starting uploading artifact to Atena')
 print('🔑Checking environment variables...')
 print('🔑Checking upload key...')
 if os.getenv('ATENA_API_KEY') is None or os.getenv('ATENA_API_KEY') == '':
